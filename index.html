@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +7,7 @@
 <title>Lucky Spin - Country Flags</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -39,10 +38,50 @@ h1 {
   font-size: 29px;
 }
 
-.subtitle {
-  color: #c5c9dd;
-  font-size: 13px;
+.subtitle { color: #c5c9dd; font-size: 13px; }
+
+input {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0;
+  border: 1px solid #555d7d;
+  border-radius: 10px;
+  background: #292f4c;
+  color: white;
+  font-size: 16px;
 }
+
+input::placeholder { color: #c5c9dd; }
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffe08a, #f0ac32);
+  color: #20172b;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:disabled { opacity: .6; cursor: wait; }
+
+.secondary {
+  background: #414866;
+  color: white;
+}
+
+#authMessage {
+  min-height: 38px;
+  color: #ffe08a;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+#gameArea { display: none; }
 
 .balance {
   margin: 22px 0;
@@ -52,10 +91,7 @@ h1 {
   font-size: 18px;
 }
 
-#coins {
-  color: #ffd166;
-  font-weight: bold;
-}
+#coins { color: #ffd166; font-weight: bold; }
 
 .reels {
   display: flex;
@@ -75,24 +111,6 @@ h1 {
   border-radius: 14px;
   background: linear-gradient(#fff, #e9eaf0);
   font-size: clamp(36px, 11vw, 54px);
-  box-shadow: inset 0 0 10px #0002;
-}
-
-button {
-  width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #ffe08a, #f0ac32);
-  color: #20172b;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 #message {
@@ -100,13 +118,6 @@ button:disabled {
   margin: 20px 0 10px;
   color: #ffe08a;
   font-weight: bold;
-}
-
-.reset {
-  margin-top: 10px;
-  background: #414866;
-  color: white;
-  font-size: 15px;
 }
 
 .footer {
@@ -119,61 +130,99 @@ button:disabled {
 </head>
 
 <body>
-
 <main class="game">
   <h1>🌍 LUCKY SPIN</h1>
   <div class="subtitle">COUNTRY FLAGS SLOT GAME</div>
 
-  <div class="balance">
-    🪙 Demo Coins: <span id="coins">100</span>
-  </div>
+  <section id="authArea">
+    <h3 id="authTitle">Login to Play</h3>
 
-  <div class="reels">
-    <div class="reel" id="r1">🇧🇩</div>
-    <div class="reel" id="r2">🇮🇳</div>
-    <div class="reel" id="r3">🇯🇵</div>
-  </div>
+    <form id="authForm">
+      <input id="email" type="email" placeholder="Email address"
+        autocomplete="email" required>
 
-  <button id="spin">🎰 SPIN — 10 COINS</button>
+      <input id="password" type="password" placeholder="Password (minimum 6 characters)"
+        autocomplete="current-password" minlength="6" required>
 
-  <p id="message" aria-live="polite">
-    Good luck! Spin to play.
-  </p>
+      <button id="loginBtn" type="submit">LOGIN</button>
+    </form>
 
-  <button class="reset" id="reset">
-    ↻ RESET DEMO
-  </button>
+    <button class="secondary" id="signupBtn" type="button">
+      CREATE ACCOUNT / SIGN UP
+    </button>
 
-  <div class="footer">
-    Demo game only. Virtual coins have no cash value.
-    No real-money deposits or withdrawals.
-  </div>
+    <button class="secondary" id="backBtn" type="button" hidden>
+      BACK TO LOGIN
+    </button>
+
+    <p id="authMessage" aria-live="polite"></p>
+    <div class="footer">
+      Use your email and password to access the demo game.
+    </div>
+  </section>
+
+  <section id="gameArea">
+    <p class="subtitle" id="userEmail"></p>
+    <button class="secondary" id="logoutBtn" type="button">
+      LOGOUT
+    </button>
+
+    <div class="balance">
+      🪙 Demo Coins: <span id="coins">100</span>
+    </div>
+
+    <div class="reels">
+      <div class="reel" id="r1">🇧🇩</div>
+      <div class="reel" id="r2">🇮🇳</div>
+      <div class="reel" id="r3">🇯🇵</div>
+    </div>
+
+    <button id="spin" type="button">🎰 SPIN — 10 COINS</button>
+
+    <p id="message" aria-live="polite">Good luck! Spin to play.</p>
+
+    <button class="secondary" id="reset" type="button">
+      ↻ RESET DEMO
+    </button>
+
+    <div class="footer">
+      Demo game only. Virtual coins have no cash value.
+      No real-money deposits or withdrawals.
+    </div>
+  </section>
 </main>
 
-<script>
-// 17 country flag symbols
-const symbols = [
-  "🇧🇩", // Bangladesh
-  "🇮🇳", // India
-  "🇵🇰", // Pakistan
-  "🇳🇵", // Nepal
-  "🇲🇲", // Myanmar
-  "🇧🇹", // Bhutan
-  "🇺🇸", // USA
-  "🇬🇧", // UK
-  "🇮🇹", // Italy
-  "🇫🇷", // France
-  "🇩🇪", // Germany
-  "🇷🇺", // Russia
-  "🇦🇺", // Australia
-  "🇸🇬", // Singapore
-  "🇨🇳", // China
-  "🇯🇵", // Japan
-  "🇰🇷"  // South Korea
-];
+<!-- Supabase JavaScript library -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+const SUPABASE_URL = "https://zyldghaarsjazijdcbvj.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_ydOU676piRedlYjzWgVs3g_9N4K4mT9";
+
+const client = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+const authArea = document.getElementById("authArea");
+const gameArea = document.getElementById("gameArea");
+const authForm = document.getElementById("authForm");
+const authMessage = document.getElementById("authMessage");
+const authTitle = document.getElementById("authTitle");
+const loginBtn = document.getElementById("loginBtn");
+const signupBtn = document.getElementById("signupBtn");
+const backBtn = document.getElementById("backBtn");
+
+let authMode = "login";
 let coins = 100;
 let busy = false;
+
+const symbols = [
+  "🇧🇩","🇮🇳","🇵🇰","🇳🇵","🇲🇲","🇧🇹",
+  "🇺🇸","🇬🇧","🇮🇹","🇫🇷","🇩🇪","🇷🇺",
+  "🇦🇺","🇸🇬","🇨🇳","🇯🇵","🇰🇷"
+];
 
 const coinDisplay = document.getElementById("coins");
 const message = document.getElementById("message");
@@ -185,14 +234,112 @@ const reels = [
   document.getElementById("r3")
 ];
 
+function setAuthMessage(text) {
+  authMessage.textContent = text;
+}
+
 function randomSymbol() {
-  return symbols[
-    Math.floor(Math.random() * symbols.length)
-  ];
+  return symbols[Math.floor(Math.random() * symbols.length)];
 }
 
 function updateCoins() {
   coinDisplay.textContent = coins;
+}
+
+function showGame(session) {
+  const loggedIn = Boolean(session);
+
+  authArea.style.display = loggedIn ? "none" : "block";
+  gameArea.style.display = loggedIn ? "block" : "none";
+
+  if (loggedIn) {
+    document.getElementById("userEmail").textContent =
+      "Logged in: " + (session.user.email || "User");
+  }
+}
+
+function setMode(mode) {
+  authMode = mode;
+  const isSignup = mode === "signup";
+
+  authTitle.textContent = isSignup ? "Create Account" : "Login to Play";
+  loginBtn.textContent = isSignup ? "SIGN UP" : "LOGIN";
+  signupBtn.hidden = isSignup;
+  backBtn.hidden = !isSignup;
+  document.getElementById("password").autocomplete =
+    isSignup ? "new-password" : "current-password";
+
+  setAuthMessage("");
+}
+
+signupBtn.addEventListener("click", () => setMode("signup"));
+backBtn.addEventListener("click", () => setMode("login"));
+
+authForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  loginBtn.disabled = true;
+  signupBtn.disabled = true;
+  setAuthMessage(authMode === "signup" ? "Creating account..." : "Logging in...");
+
+  try {
+    if (authMode === "signup") {
+      const { data, error } = await client.auth.signUp({
+        email,
+        password
+      });
+
+      if (error) throw error;
+
+      if (data.session) {
+        setAuthMessage("Account created successfully!");
+      } else {
+        setAuthMessage(
+          "Account created. Check your email for the confirmation link, then log in."
+        );
+      }
+    } else {
+      const { error } = await client.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) throw error;
+
+      setAuthMessage("Login successful!");
+    }
+  } catch (error) {
+    setAuthMessage(error.message || "Something went wrong. Please try again.");
+  } finally {
+    loginBtn.disabled = false;
+    signupBtn.disabled = false;
+  }
+});
+
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+  const { error } = await client.auth.signOut();
+
+  if (error) {
+    message.textContent = "Logout failed: " + error.message;
+  }
+});
+
+client.auth.onAuthStateChange((_event, session) => {
+  showGame(session);
+});
+
+async function checkSession() {
+  const { data, error } = await client.auth.getSession();
+
+  if (error) {
+    setAuthMessage("Could not check login status. Please refresh.");
+    return;
+  }
+
+  showGame(data.session);
 }
 
 function spin() {
@@ -209,14 +356,9 @@ function spin() {
   updateCoins();
   message.textContent = "Spinning...";
 
-  // Animate the reels
   let ticks = 0;
-
   const animation = setInterval(() => {
-    reels.forEach(reel => {
-      reel.textContent = randomSymbol();
-    });
-
+    reels.forEach(reel => reel.textContent = randomSymbol());
     ticks++;
 
     if (ticks >= 12) {
@@ -227,20 +369,13 @@ function spin() {
 }
 
 function finishSpin() {
-  const results = [
-    randomSymbol(),
-    randomSymbol(),
-    randomSymbol()
-  ];
+  const results = [randomSymbol(), randomSymbol(), randomSymbol()];
 
   reels.forEach((reel, index) => {
     reel.textContent = results[index];
   });
 
-  if (
-    results[0] === results[1] &&
-    results[1] === results[2]
-  ) {
+  if (results[0] === results[1] && results[1] === results[2]) {
     coins += 50;
     message.textContent = "🎉 JACKPOT! +50 demo coins!";
   } else if (
@@ -267,14 +402,13 @@ document.getElementById("reset").addEventListener("click", () => {
   coins = 100;
   updateCoins();
 
-  reels.forEach(reel => {
-    reel.textContent = randomSymbol();
-  });
+  reels.forEach(reel => reel.textContent = randomSymbol());
 
   message.textContent = "Demo reset! Good luck!";
   spinButton.disabled = false;
 });
-</script>
 
+checkSession();
+</script>
 </body>
 </html>
